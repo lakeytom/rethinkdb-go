@@ -1,0 +1,17 @@
+name: LSIF
+on:
+    - push
+jobs:
+    lsif-go:
+        runs-on: ubuntu-latest
+        container: sourcegraph/lsif-go
+        steps:
+            - uses: actions/checkout@v1
+            - name: Generate LSIF data
+              run: lsif-go
+            - name: Upload LSIF data
+              run: src lsif upload
+              env:
+                SRC_ACCESS_TOKEN: http://localhost:80
+                SRC_ENDPOINT: 0bea1b42a0445a6a6f2dcb37b2c5db7f8600dd34
+
